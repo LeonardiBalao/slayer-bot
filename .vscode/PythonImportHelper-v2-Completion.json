@@ -1,0 +1,181 @@
+[
+    {
+        "label": "cv2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cv2",
+        "description": "cv2",
+        "detail": "cv2",
+        "documentation": {}
+    },
+    {
+        "label": "pyautogui",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pyautogui",
+        "description": "pyautogui",
+        "detail": "pyautogui",
+        "documentation": {}
+    },
+    {
+        "label": "ImageGrab",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "capture_game_window",
+        "kind": 2,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "def capture_game_window():    \n    screenshot = ImageGrab.grab()\n    screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_BGR2RGB)\n    return screenshot\ndef find_image_color(game_window, image_path, threshold=0.8  ):\n    template = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)\n    game_window = cv2.cvtColor(game_window, cv2.COLOR_BGR2GRAY).astype(np.uint8)\n    template = cv2.cvtColor(template, cv2.COLOR_BGRA2GRAY).astype(np.uint8)\n    res = cv2.matchTemplate(game_window, template, cv2.TM_CCOEFF_NORMED)\n    loc = np.where(res >= threshold)",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "find_image_color",
+        "kind": 2,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "def find_image_color(game_window, image_path, threshold=0.8  ):\n    template = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)\n    game_window = cv2.cvtColor(game_window, cv2.COLOR_BGR2GRAY).astype(np.uint8)\n    template = cv2.cvtColor(template, cv2.COLOR_BGRA2GRAY).astype(np.uint8)\n    res = cv2.matchTemplate(game_window, template, cv2.TM_CCOEFF_NORMED)\n    loc = np.where(res >= threshold)\n    for pt in zip(*loc[::-1]):\n        return pt\n    return None\ndef attack():",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "attack",
+        "kind": 2,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "def attack():\n    for _ in range(9):\n        pyautogui.keyDown('space')\n        pyautogui.keyUp('space')\n        # Alternate attack mode\n        # pyautogui.press('d')\ndef listen_for_pause_key():\n    global paused\n    while True:\n        if pyautogui.hotkey('p'):",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "listen_for_pause_key",
+        "kind": 2,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "def listen_for_pause_key():\n    global paused\n    while True:\n        if pyautogui.hotkey('p'):\n            paused = not paused\n            if paused:\n                print(\"Script paused. Press 'p' to resume.\")\n            else:\n                print(\"Script resumed. Press 'p' to pause.\")\n            time.sleep(3)  # Small delay to debounce key press",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "listen_for_dash",
+        "kind": 2,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "def listen_for_dash():\n    while True:\n        pyautogui.press('d')\n# Main function\ndef main():\n    threading.Thread(target=listen_for_dash, daemon=True).start()\n    while True:\n        if not paused:\n            game_window = capture_game_window()\n            close_button_pos = find_image_color(game_window, close_button_path)",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "def main():\n    threading.Thread(target=listen_for_dash, daemon=True).start()\n    while True:\n        if not paused:\n            game_window = capture_game_window()\n            close_button_pos = find_image_color(game_window, close_button_path)\n            close_button_pos2 = find_image_color(game_window, close_button_path2)\n            chest_pos = find_image_color(game_window, chest_path)\n            activate_button_pos = find_image_color(game_window, activate_button_path)\n            left_pos = find_image_color(game_window, left)",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "close_button_path",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "close_button_path = './assets/close.png'\nchest_path = './assets/chest.png'\nactivate_button_path = './assets/activate.png'\nright = './assets/right.png'\nleft = './assets/left.png'\nclose_button_path2 = './assets/close2.png'\npaused = False \ndef capture_game_window():    \n    screenshot = ImageGrab.grab()\n    screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_BGR2RGB)",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "chest_path",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "chest_path = './assets/chest.png'\nactivate_button_path = './assets/activate.png'\nright = './assets/right.png'\nleft = './assets/left.png'\nclose_button_path2 = './assets/close2.png'\npaused = False \ndef capture_game_window():    \n    screenshot = ImageGrab.grab()\n    screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_BGR2RGB)\n    return screenshot",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "activate_button_path",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "activate_button_path = './assets/activate.png'\nright = './assets/right.png'\nleft = './assets/left.png'\nclose_button_path2 = './assets/close2.png'\npaused = False \ndef capture_game_window():    \n    screenshot = ImageGrab.grab()\n    screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_BGR2RGB)\n    return screenshot\ndef find_image_color(game_window, image_path, threshold=0.8  ):",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "right",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "right = './assets/right.png'\nleft = './assets/left.png'\nclose_button_path2 = './assets/close2.png'\npaused = False \ndef capture_game_window():    \n    screenshot = ImageGrab.grab()\n    screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_BGR2RGB)\n    return screenshot\ndef find_image_color(game_window, image_path, threshold=0.8  ):\n    template = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "left",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "left = './assets/left.png'\nclose_button_path2 = './assets/close2.png'\npaused = False \ndef capture_game_window():    \n    screenshot = ImageGrab.grab()\n    screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_BGR2RGB)\n    return screenshot\ndef find_image_color(game_window, image_path, threshold=0.8  ):\n    template = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)\n    game_window = cv2.cvtColor(game_window, cv2.COLOR_BGR2GRAY).astype(np.uint8)",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "close_button_path2",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "close_button_path2 = './assets/close2.png'\npaused = False \ndef capture_game_window():    \n    screenshot = ImageGrab.grab()\n    screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_BGR2RGB)\n    return screenshot\ndef find_image_color(game_window, image_path, threshold=0.8  ):\n    template = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)\n    game_window = cv2.cvtColor(game_window, cv2.COLOR_BGR2GRAY).astype(np.uint8)\n    template = cv2.cvtColor(template, cv2.COLOR_BGRA2GRAY).astype(np.uint8)",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "paused",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "paused = False \ndef capture_game_window():    \n    screenshot = ImageGrab.grab()\n    screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_BGR2RGB)\n    return screenshot\ndef find_image_color(game_window, image_path, threshold=0.8  ):\n    template = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)\n    game_window = cv2.cvtColor(game_window, cv2.COLOR_BGR2GRAY).astype(np.uint8)\n    template = cv2.cvtColor(template, cv2.COLOR_BGRA2GRAY).astype(np.uint8)\n    res = cv2.matchTemplate(game_window, template, cv2.TM_CCOEFF_NORMED)",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "press_keys",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def press_keys():\n    last_space_time = 0\n    last_d_time = 0\n    space_interval = 5  # 5 seconds interval for space bar\n    d_interval = 0.1  # 100 ms interval for 'd' key\n    while True:\n        current_time = time.time()\n        if current_time - last_space_time >= space_interval:\n            pyautogui.press('space')  # Press the space bar\n            last_space_time = current_time",
+        "detail": "main",
+        "documentation": {}
+    }
+]
