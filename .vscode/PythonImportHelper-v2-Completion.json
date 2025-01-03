@@ -168,14 +168,5 @@
         "peekOfCode": "paused = False \ndef capture_game_window():    \n    screenshot = ImageGrab.grab()\n    screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_BGR2RGB)\n    return screenshot\ndef find_image_color(game_window, image_path, threshold=0.8  ):\n    template = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)\n    game_window = cv2.cvtColor(game_window, cv2.COLOR_BGR2GRAY).astype(np.uint8)\n    template = cv2.cvtColor(template, cv2.COLOR_BGRA2GRAY).astype(np.uint8)\n    res = cv2.matchTemplate(game_window, template, cv2.TM_CCOEFF_NORMED)",
         "detail": "bot",
         "documentation": {}
-    },
-    {
-        "label": "press_keys",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def press_keys():\n    last_space_time = 0\n    last_d_time = 0\n    space_interval = 5  # 5 seconds interval for space bar\n    d_interval = 0.1  # 100 ms interval for 'd' key\n    while True:\n        current_time = time.time()\n        if current_time - last_space_time >= space_interval:\n            pyautogui.press('space')  # Press the space bar\n            last_space_time = current_time",
-        "detail": "main",
-        "documentation": {}
     }
 ]
