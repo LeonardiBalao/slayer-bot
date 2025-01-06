@@ -66,7 +66,7 @@ def main():
         pyautogui.press("w")
         pyautogui.click(clicks=4, interval=0.07)
         pyautogui.click(button="right")  # Dash every iteration
-        search_images |= count % 19 != 0
+        search_images |= count % 19 == 0
         count += 1
         if not search_images:
             continue
